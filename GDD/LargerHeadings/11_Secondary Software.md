@@ -1,5 +1,0 @@
-# Editor
-
-# Installer
-
-# Update Software
