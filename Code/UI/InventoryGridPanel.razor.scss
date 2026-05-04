@@ -1,0 +1,126 @@
+.inventory-root {
+    position: absolute;
+    inset: 0;
+    pointer-events: all;
+    align-items: center;
+    justify-content: center;
+    font-family: Poppins;
+    color: #e9f7fb;
+}
+
+.inventory-root.closed {
+    display: none;
+}
+
+.inventory-window {
+    width: 920px;
+    padding: 18px;
+    border: 1px solid rgba( 113, 223, 235, 0.32 );
+    border-radius: 6px;
+    background-color: rgba( 12, 18, 24, 0.88 );
+    backdrop-filter: blur( 8px );
+    flex-direction: column;
+    gap: 14px;
+}
+
+.inventory-header {
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.inventory-title {
+    font-size: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+}
+
+.inventory-subtitle,
+.inventory-meta {
+    font-size: 15px;
+    color: #8fd9e6;
+}
+
+.inventory-body {
+    gap: 18px;
+}
+
+.grid-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.grid-cell {
+    position: absolute;
+    border: 1px solid rgba( 127, 203, 218, 0.22 );
+    background-color: rgba( 30, 47, 58, 0.45 );
+}
+
+.inventory-item {
+    position: absolute;
+    padding: 7px;
+    border: 1px solid rgba( 255, 255, 255, 0.26 );
+    border-radius: 4px;
+    background-color: rgba( 66, 91, 103, 0.92 );
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inventory-item.weapon {
+    background-color: rgba( 80, 88, 82, 0.96 );
+    border-color: rgba( 225, 205, 151, 0.65 );
+}
+
+.inventory-item.ammo,
+.inventory-item.magazine {
+    background-color: rgba( 75, 85, 54, 0.96 );
+    border-color: rgba( 177, 229, 87, 0.62 );
+}
+
+.inventory-item.medical {
+    background-color: rgba( 91, 48, 58, 0.96 );
+    border-color: rgba( 242, 118, 142, 0.62 );
+}
+
+.inventory-item.food,
+.inventory-item.water {
+    background-color: rgba( 48, 76, 93, 0.96 );
+    border-color: rgba( 113, 210, 236, 0.62 );
+}
+
+.item-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.item-size,
+.item-count {
+    font-size: 12px;
+    color: rgba( 233, 247, 251, 0.78 );
+}
+
+.item-count {
+    align-self: flex-end;
+    font-weight: 700;
+}
+
+.inventory-side {
+    width: 210px;
+    padding: 12px;
+    border: 1px solid rgba( 127, 203, 218, 0.2 );
+    border-radius: 4px;
+    background-color: rgba( 24, 35, 43, 0.78 );
+    flex-direction: column;
+    gap: 8px;
+}
+
+.side-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #8fd9e6;
+}
+
+.side-row {
+    font-size: 13px;
+    color: rgba( 233, 247, 251, 0.82 );
+}

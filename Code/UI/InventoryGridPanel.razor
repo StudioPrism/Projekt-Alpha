@@ -1,0 +1,122 @@
+@using System
+@using Sandbox
+@using Sandbox.UI
+@namespace Sandbox
+@inherits Panel
+
+<root class="@RootClass()">
+    @if ( Owner?.Container is not null )
+    {
+        var container = Owner.Container;
+
+        <div class="inventory-window">
+            <div class="inventory-header">
+                <div>
+                    <div class="inventory-title">Inventory</div>
+                    <div class="inventory-subtitle">@container.DisplayName</div>
+                </div>
+                <div class="inventory-meta">
+                    @container.CurrentWeight.ToString( "0.0" ) / @container.MaxWeight.ToString( "0.0" ) kg
+                </div>
+            </div>
+
+            <div class="inventory-body">
+                <div class="grid-wrap" style="@GridStyle( container )">
+                    @foreach ( var cell in Cells( container ) )
+                    {
+                        <div class="grid-cell" style="@CellStyle( cell )"></div>
+                    }
+
+                    @foreach ( var item in container.Items )
+                    {
+                        <div class="inventory-item @CategoryClass( item.Definition.Category )" style="@ItemStyle( item )">
+                            <div class="item-name">@item.Definition.DisplayName</div>
+                            <div class="item-size">@item.Footprint.Width x @item.Footprint.Height</div>
+                            @if ( item.Quantity > 1 )
+                            {
+                                <div class="item-count">x@item.Quantity</div>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div class="inventory-side">
+                    <div class="side-title">Backend Test</div>
+                    <div class="side-row">Tab: close / open</div>
+                    <div class="side-row">Items: @container.Items.Count</div>
+                    <div class="side-row">Grid: @container.Width x @container.Height</div>
+                    <div class="side-row">Occupied: @container.EnumerateOccupiedCells().Count()</div>
+                </div>
+            </div>
+        </div>
+    }
+</root>
+
+@code
+{
+    public InventoryController Owner { get; set; }
+
+    private const int CellSize = 56;
+    private const int CellGap = 3;
+
+    private string RootClass()
+    {
+        return Owner?.IsOpen == true ? "inventory-root open" : "inventory-root closed";
+    }
+
+    private string GridStyle( InventoryContainer container )
+    {
+        var width = container.Width * CellSize + (container.Width - 1) * CellGap;
+        var height = container.Height * CellSize + (container.Height - 1) * CellGap;
+        return $"width: {width}px; height: {height}px;";
+    }
+
+    private string CellStyle( InventoryGridPosition cell )
+    {
+        return $"left: {cell.X * (CellSize + CellGap)}px; top: {cell.Y * (CellSize + CellGap)}px; width: {CellSize}px; height: {CellSize}px;";
+    }
+
+    private string ItemStyle( InventoryItemStack item )
+    {
+        var width = item.Footprint.Width * CellSize + (item.Footprint.Width - 1) * CellGap;
+        var height = item.Footprint.Height * CellSize + (item.Footprint.Height - 1) * CellGap;
+        var left = item.Position.X * (CellSize + CellGap);
+        var top = item.Position.Y * (CellSize + CellGap);
+        return $"left: {left}px; top: {top}px; width: {width}px; height: {height}px;";
+    }
+
+    private string CategoryClass( InventoryCategory category )
+    {
+        return category switch
+        {
+            InventoryCategory.Weapon => "weapon",
+            InventoryCategory.Ammo => "ammo",
+            InventoryCategory.Magazine => "magazine",
+            InventoryCategory.Medical => "medical",
+            InventoryCategory.Food => "food",
+            InventoryCategory.Water => "water",
+            _ => "misc"
+        };
+    }
+
+    private IEnumerable<InventoryGridPosition> Cells( InventoryContainer container )
+    {
+        for ( var y = 0; y < container.Height; y++ )
+        {
+            for ( var x = 0; x < container.Width; x++ )
+                yield return new InventoryGridPosition( x, y );
+        }
+    }
+
+    public override void Tick()
+    {
+        base.Tick();
+        SetClass( "open", Owner?.IsOpen == true );
+        SetClass( "closed", Owner?.IsOpen != true );
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( Owner?.UiVersion ?? 0, Owner?.IsOpen ?? false, Owner?.Container?.Items.Count ?? 0 );
+    }
+}
