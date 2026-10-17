@@ -47,7 +47,7 @@ Input actions are defined in [ProjectSettings/Input.config](ProjectSettings/Inpu
 
 Track current work in [Issues](https://github.com/StudioPrism/Projekt-Alpha/issues). Keep each task focused on an observable outcome, and link its implementation pull request.
 
-przm.DEV can launch s&box and open a linked local clone in Rider. It is a separate application; it is not included in this checkout. [Lightstream-Engine](https://github.com/StudioPrism/Lightstream-Engine) is also a separate Swift project, not a dependency declared by this s&box project.
+przm.DEV can launch s&box and open a linked local clone in Rider. It is a separate application; it is not included in this checkout. [Lightstream-Engine](https://github.com/StudioPrism/Lightstream-Engine) is the separate framework and SDK effort being built around s&box. Its main branch currently contains the foundation layout and documentation; this game does not yet declare a Lightstream dependency.
 
 ## Contributions and notices
 
