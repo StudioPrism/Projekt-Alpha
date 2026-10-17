@@ -1,29 +1,24 @@
-# Developing Projekt Alpha9
+# Development
 
-## Branch scope
+## First setup
 
-These setup notes describe `main`. `InDev` contains a separate controller implementation. Record which branch and commit you are testing; do not transfer a build-status claim from one branch to the other.
+1. Clone the repository and check out `Dev`.
+2. Create a new game project using the s&box editor, using Projekt Alpha9 as its display title. Use the repository root for the project and retain this documentation.
+3. Commit the actual project descriptor and required generated source/settings. Do not restore the old descriptor or its startup-scene references without reviewing them.
+4. Create a minimal development scene and configure it as the startup scene.
+5. Confirm that the project compiles and opens in Play mode before implementing gameplay.
 
-## Tools and setup
+No project descriptor, startup scene, controller, automated build, or runtime test suite currently exists on main or Dev. IDE/build instructions will be documented after the new editor project is created.
 
-Use the s&box editor for project loading, compilation, scenes, and play testing. Use Rider or another compatible IDE for C# work. Blender and Krita can support asset creation, but no custom integration or required versions are defined by this repository.
+## Workflow
 
-The checked-in `projektalpha.sbproj` configures `scenes/minimal.scene` as the startup scene. Input definitions live in `ProjectSettings/Input.config`.
+Branch from Dev for focused changes. Merge reviewed changes into Dev, validate in s&box, and promote stable work to main. Record the editor version, tested commit, scene, and reproduction steps when reporting gameplay verification.
 
-## Verification checklist
+Keep generated IDE files and caches out of git. Track source assets, required project metadata, and shared project settings. Do not add dependencies or describe features as working until they have been validated.
 
-Before reporting a change as verified:
+## Pre-reset references
 
-1. Record the commit and s&box/editor version.
-2. Open the project and inspect the compile output.
-3. Resolve errors introduced by the change. Record any existing baseline errors separately.
-4. If compilation succeeds, open the relevant scene and test the changed behavior in Play mode.
-5. For controller/camera changes, include concise reproduction steps and a capture when it helps review.
+- `PreReset-1` preserves main at `9dbbb7f968b9fa6842a405d4904391a8d0772114`.
+- `InDev` retains its separate prototype at `c144b64c7d561efc85ab535ededc4a81487e74d7`.
 
-The `main` branch's player controller contains an unfinished declaration. This documentation cleanup does not change runtime code or fix that blocker. No automated build/test workflow is established by these notes.
-
-## Repository hygiene
-
-Keep `Code/`, `Editor/`, source assets, and shared project settings under version control. Respect the existing ignore rules for generated editor output, solutions, and exported games. Do not add broad ignore patterns that hide required source assets.
-
-Keep active task tracking in Issues rather than a separate checklist in the organization-profile repository. When documenting a gameplay feature, distinguish intended behavior from what the current project actually implements.
+The reset is a normal commit on main; earlier history remains available. Restore individual files only after reviewing their purpose, dependencies, and source notices.
