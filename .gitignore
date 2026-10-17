@@ -27,3 +27,8 @@ code/Properties/*
 
 # Exported / standalone games
 Exports/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
